@@ -1,4 +1,4 @@
-            - name: powerplatform-actions
+name: powerplatform-actions
   uses: microsoft/powerplatform-actions@v1.9.1
   with:
     # URL of Power Platform environment to connect with; e.g. "https://test-env.crm.dynamics.com"
