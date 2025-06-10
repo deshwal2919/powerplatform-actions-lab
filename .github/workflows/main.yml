@@ -1,10 +1,40 @@
-name: powerplatform-actions
-  uses: microsoft/powerplatform-actions@v1.9.1
-  with:
-    # URL of Power Platform environment to connect with; e.g. "https://test-env.crm.dynamics.com"
-    environment-url: "https://org65ab5f86.crm.dynamics.com/"
-    # Power Platform user name to authenticate with, e.g. myname@my-org.onmicrosoft.com. Setting this input makes user-name and password required; specifying alternate "app-id" credential set of inputs will result in an error.
-    user-name: shadab.deshwal@ctltittest.net
-    # Power Platform password, required if authenticating with username. Do NOT checkin password, instead create a secret and reference it here with: see: https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets#using-encrypted-secrets-in-a-workflow
-    password-secret: ${{ secrets.passw }}
-          
+jobs:
+  build:
+
+    runs-on: windows-latest   # alternate runner OS is: ubuntu-latest
+
+    steps:
+    - name: Install Power Platform Tools
+      uses: microsoft/powerplatform-actions/actions-install@v1
+
+    - name: Export Solution
+      uses: microsoft/powerplatform-actions/export-solution@v1
+      with:
+        environment-url: 'https://org65ab5f86.crm.dynamics.com/'
+        user-name: 'shadab.deshwal@ctltittest.net'
+        password-secret: ${{ secrets.MYPASSWORD }}
+        solution-name: aSolution
+        solution-output-file: 'aSolution.zip'
+        working-directory: 'out'
+
+    - name: Unpack Solution
+      uses: microsoft/powerplatform-actions/unpack-solution@v1
+      with:
+        solution-file: 'out/aSolution1.zip'
+        solution-folder: 'out/solutions/solution one'
+        solution-type: 'Unmanaged'
+        overwrite-files: true
+
+    - name: Publish Solution
+      uses: microsoft/powerplatform-actions/publish-solution@v1
+      with:
+        environment-url: 'https://myenv.crm.dynamics.com'
+        user-name: 'me@myenv.onmicrosoft.com'
+        password-secret: ${{ secrets.MYPASSWORD }}
+
+    - name: Prepare solution changes for check-in into source control
+      uses: microsoft/powerplatform-actions/branch-solution@v1
+      with:
+        solution-folder: 'out/solutions/solution one'
+        solution-target-folder: 'src/solutions/solution1'
+        token: ${{ secrets.GITHUB_TOKEN }}
