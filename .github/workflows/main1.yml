@@ -1,4 +1,4 @@
-            - name: powerapps-checker11
+            - name: powerapps-checker
   # You may pin to the exact commit or the version.
   # uses: rajyraman/powerapps-checker@d7a13abf8f7ffdcbfecfe4fef3523522892eb494
   uses: rajyraman/powerapps-checker@v1.4
