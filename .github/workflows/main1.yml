@@ -1,0 +1,28 @@
+            - name: powerapps-checker11
+  # You may pin to the exact commit or the version.
+  # uses: rajyraman/powerapps-checker@d7a13abf8f7ffdcbfecfe4fef3523522892eb494
+  uses: rajyraman/powerapps-checker@v1.4
+  with:
+    # GitHub Token
+    token: ${{ secrets.GITHUB_TOKEN }}
+    # Branch name to commit the changes to
+    branch: # optional, default is main
+    # Solution Name
+    solutionName: Test1121
+    # Source Environment URL
+    sourceEnvironmentUrl: https://org65ab5f86.crm.dynamics.com/
+    # Application Id
+    applicationId: 00e26c7e-ccc4-4ff4-82b7-81528a46e70e
+    # Application Secret
+    applicationSecret: ${{ secrets.MYPASSWORD }}
+    # Tenant Id
+    tenantId: 5a6caeef-afd8-4f9a-8dd7-0df4064aacef
+    # Rule Set
+    ruleSet: # optional, default is Solution Checker
+    # Geography
+    geography: UnitedStates
+    # Application Secret
+    locale: # optional, default is en
+    # Save results of Power Apps Solution Checker
+    saveResults: # optional, default is true
+          
